@@ -8,6 +8,12 @@ import DetailsScreen from '../screens/DetailsScreen';
 import CounterScreen from '../screens/CounterScreen';
 import SettingsScreen from '../screens/SettingScreen';
 import ColorScreen from '../screens/ColorScreen'; 
+import AllTaskScreen from '../screens/AllTaskScreen';
+import TodayScreen from '../screens/TodayScreen';
+import TomorrowScreen from '../screens/TomorrowScreen';
+import WeekScreen from '../screens/WeekScreen';
+import CompletedScreen from '../screens/CompletedScreen';
+import WorkScreen from '../screens/WorkScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,8 +34,13 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name='Home' component={HomeScreen}/>
+        <Stack.Screen name='AllTask' component={AllTaskScreen}/>
+        <Stack.Screen name='Today' component={TodayScreen}/>
+        <Stack.Screen name='Tomorrow' component={TomorrowScreen}/>
+        <Stack.Screen name='Week' component={WeekScreen}/>
+        <Stack.Screen name='Completed' component={CompletedScreen}/>
+        <Stack.Screen name='Work' component={WorkScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
