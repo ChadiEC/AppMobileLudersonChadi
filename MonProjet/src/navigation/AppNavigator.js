@@ -15,6 +15,7 @@ import WeekScreen from '../screens/WeekScreen';
 import CompletedScreen from '../screens/CompletedScreen';
 import WorkScreen from '../screens/WorkScreen';
 import { TaskProvider } from '../context/TaskContext';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,18 +34,20 @@ function Tabs() {
 
 export default function AppNavigator() {
   return (
-    <TaskProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name='Home' component={HomeScreen}/>
-          <Stack.Screen name='AllTask' component={AllTaskScreen}/>
-          <Stack.Screen name='Today' component={TodayScreen}/>
-          <Stack.Screen name='Tomorrow' component={TomorrowScreen}/>
-          <Stack.Screen name='Week' component={WeekScreen}/>
-          <Stack.Screen name='Completed' component={CompletedScreen}/>
-          <Stack.Screen name='Work' component={WorkScreen}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </TaskProvider>
+     <GestureHandlerRootView style={{ flex: 1 }}>
+      <TaskProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name='Home' component={HomeScreen}/>
+            <Stack.Screen name='AllTask' component={AllTaskScreen}/>
+            <Stack.Screen name='Today' component={TodayScreen}/>
+            <Stack.Screen name='Tomorrow' component={TomorrowScreen}/>
+            <Stack.Screen name='Week' component={WeekScreen}/>
+            <Stack.Screen name='Completed' component={CompletedScreen}/>
+            <Stack.Screen name='Work' component={WorkScreen}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </TaskProvider>
+      </GestureHandlerRootView>
   );
 }

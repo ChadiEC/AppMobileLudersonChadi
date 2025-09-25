@@ -1,7 +1,9 @@
 import React, { createContext, useState } from 'react';
 
+// ✅ Crée et exporte le contexte
 export const TaskContext = createContext();
 
+// ✅ Fournisseur du contexte
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
@@ -10,7 +12,7 @@ export const TaskProvider = ({ children }) => {
       id: Date.now().toString(),
       title,
       description,
-      date,
+      date,        // "Aujourd'hui" | "Demain" | "Cette semaine"
       type,
       urgency,
       isDone: false
@@ -26,19 +28,23 @@ export const TaskProvider = ({ children }) => {
     setTasks(prev => prev.filter(t => t.id !== id));
   };
 
-  const getSortedTasks = () => {
-    return [...tasks].sort((a, b) => {
-      const dateA = a.date ? new Date(a.date) : new Date(0);
-      const dateB = b.date ? new Date(b.date) : new Date(0);
-      if (dateA - dateB !== 0) return dateA - dateB;
-
-      const urgencyOrder = { 'Haute': 3, 'Moyenne': 2, 'Basse': 1 };
-      return (urgencyOrder[b.urgency] || 0) - (urgencyOrder[a.urgency] || 0);
-    });
-  };
+  // ✅ Filtres par échéance
+  const getTodayTasks = () => tasks.filter(t => t.date === "Aujourd'hui");
+  const getTomorrowTasks = () => tasks.filter(t => t.date === "Demain");
+  const getWeekTasks = () => tasks.filter(t => t.date === "Cette semaine");
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, toggleTaskDone, deleteTask, getSortedTasks }}>
+    <TaskContext.Provider
+      value={{
+        tasks,
+        addTask,
+        toggleTaskDone,
+        deleteTask,
+        getTodayTasks,
+        getTomorrowTasks,
+        getWeekTasks
+      }}
+    >
       {children}
     </TaskContext.Provider>
   );

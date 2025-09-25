@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TaskContext } from '../context/TaskContext';
 
 export default function HomeScreen({ navigation }) {
-  const { addTask, tasks } = useContext(TaskContext);
+  const { tasks, addTask, getTodayTasks, getTomorrowTasks, getWeekTasks } = useContext(TaskContext);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
@@ -37,15 +37,15 @@ export default function HomeScreen({ navigation }) {
 
         <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Today')}>
           <Ionicons name="today" size={20} color="#fff" />
-          <Text style={styles.boxText}>Today</Text>
+          <Text style={styles.boxText}>Today ({getTodayTasks().length}) </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Tomorrow')}>
           <Ionicons name="calendar" size={20} color="#fff" />
-          <Text style={styles.boxText}>Tomorrow</Text>
+          <Text style={styles.boxText}>Tomorrow ({getTomorrowTasks().length})</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Week')}>
           <Ionicons name="briefcase" size={20} color="#fff" />
-          <Text style={styles.boxText}>Week</Text>
+          <Text style={styles.boxText}>Week ({getWeekTasks().length})</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('Completed')}>
           <Ionicons name="checkmark-done" size={20} color="#fff" />
@@ -64,21 +64,95 @@ export default function HomeScreen({ navigation }) {
       </View>
 
       <Modal visible={modalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10 }}>Nouvelle tâche</Text>
-            <TextInput placeholder="Titre" value={title} onChangeText={setTitle} style={styles.input} />
-            <TextInput placeholder="Description" value={description} onChangeText={setDescription} style={styles.input} />
-            <TextInput placeholder="Date (YYYY-MM-DD)" value={date} onChangeText={setDate} style={styles.input} />
-            <TextInput placeholder="Type" value={type} onChangeText={setType} style={styles.input} />
-            <TextInput placeholder="Urgence (Basse/Moyenne/Haute)" value={urgency} onChangeText={setUrgency} style={styles.input} />
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
-              <TouchableOpacity onPress={handleAddTask} style={styles.modalButton}><Text style={{color:'white'}}>Ajouter</Text></TouchableOpacity>
-              <TouchableOpacity onPress={() => setModalVisible(false)} style={[styles.modalButton, {backgroundColor:'gray'}]}><Text style={{color:'white'}}>Annuler</Text></TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10 }}>Nouvelle tâche</Text>
+
+      <TextInput
+        placeholder="Titre"
+        value={title}
+        onChangeText={setTitle}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
+        style={styles.input}
+      />
+
+      
+      <Text style={{ marginBottom: 5 }}>Échéance :</Text>
+      {["Aujourd'hui", "Demain", "Cette semaine"].map((option) => (
+        <TouchableOpacity
+          key={option}
+          style={[
+            styles.selector,
+            date === option && { backgroundColor: "#4A90E2" },
+          ]}
+          onPress={() => setDate(option)}
+        >
+          <Text
+            style={{
+              color: date === option ? "white" : "black",
+              fontWeight: "bold",
+            }}
+          >
+            {option}
+          </Text>
+        </TouchableOpacity>
+      ))}
+
+     
+      <TextInput
+        placeholder="Type (ex: Travail, Perso...)"
+        value={type}
+        onChangeText={setType}
+        style={styles.input}
+      />
+
+      <Text style={{ marginBottom: 5 }}>Urgence :</Text>
+      {["Basse", "Moyenne", "Haute"].map((level) => (
+        <TouchableOpacity
+          key={level}
+          style={[
+            styles.selector,
+            urgency === level && { backgroundColor: "#E24A4A" },
+          ]}
+          onPress={() => setUrgency(level)}
+        >
+          <Text
+            style={{
+              color: urgency === level ? "white" : "black",
+              fontWeight: "bold",
+            }}
+          >
+            {level}
+          </Text>
+        </TouchableOpacity>
+      ))}
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 15,
+        }}
+      >
+        <TouchableOpacity onPress={handleAddTask} style={styles.modalButton}>
+          <Text style={{ color: "white" }}>Ajouter</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setModalVisible(false)}
+          style={[styles.modalButton, { backgroundColor: "gray" }]}
+        >
+          <Text style={{ color: "white" }}>Annuler</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </View>
+</Modal>
+
 
     </View>
   );
@@ -97,5 +171,10 @@ const styles = StyleSheet.create({
   modalContainer: { flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.5)' },
   modalContent: { width:'90%', backgroundColor:'white', padding:20, borderRadius:10 },
   input: { borderWidth:1, borderColor:'#ccc', borderRadius:5, marginBottom:10, paddingHorizontal:10, height:40 },
-  modalButton: { backgroundColor:'green', padding:10, borderRadius:5, flex:1, alignItems:'center', marginHorizontal:5 }
+  modalButton: { backgroundColor:'green', padding:10, borderRadius:5, flex:1, alignItems:'center', marginHorizontal:5 },
+  quickBtn:{
+  borderWidth:1, borderColor:'#ccc', borderRadius:5,
+  paddingVertical:6, paddingHorizontal:10
+}
+
 });
