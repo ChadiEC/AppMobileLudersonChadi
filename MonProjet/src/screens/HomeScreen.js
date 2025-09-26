@@ -145,14 +145,14 @@ export default function HomeScreen({ navigation }) {
 
             {/* BUTTONS */}
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 15 }}>
-              <TouchableOpacity onPress={handleAddTask} style={styles.modalButton}>
-                <Text style={{ color: "white" }}>Ajouter</Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setModalVisible(false)}
                 style={[styles.modalButton, { backgroundColor: "gray" }]}
               >
                 <Text style={{ color: "white" }}>Annuler</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleAddTask} style={styles.modalButton}>
+                <Text style={{ color: "white" }}>Ajouter</Text>
               </TouchableOpacity>
             </View>
 
@@ -179,4 +179,5 @@ const styles = StyleSheet.create({
   modalButton: { backgroundColor:'green', padding:10, borderRadius:5, flex:1, alignItems:'center', marginHorizontal:5 },
   selector: { borderWidth:1, borderColor:'#ccc', borderRadius:5, padding:10, marginBottom:10 },
   quickBtn:{ borderWidth:1, borderColor:'#ccc', borderRadius:5, paddingVertical:6, paddingHorizontal:10 }
+
 });
