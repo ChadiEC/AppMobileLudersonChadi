@@ -1,17 +1,3 @@
-<<<<<<< Updated upstream
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-
-export default function HomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Accueil</Text>
-      <Button title="Aller aux Détails" onPress={() => navigation.navigate('Details')} />
-      <Button title="Changez la couleur du BackGround" onPress={() => navigation.navigate('Color')} />
-
-      <View style={{ height: 12 }} />
-      <Button title="Voir le Compteur" onPress={() => navigation.navigate('Counter')} />
-=======
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
@@ -35,17 +21,17 @@ export default function HomeScreen({ navigation }) {
   };
 
   const getUrgencyColor = (level) => {
-  if (level === "Haute") return "#E24A4A";   
-  if (level === "Moyenne") return "#4A90E2"; 
-  else return "#4CAF50";                          
-};
+    if (level === "Haute") return "#E24A4A";   // rouge
+    if (level === "Moyenne") return "#4A90E2"; // bleu
+    return "#4CAF50";                          // vert
+  };
 
   const handleAddTask = () => {
     if (title.trim() === "") return;
     addTask({
       title,
       description,
-      date: date.toISOString().split("T")[0], // YYYY-MM-DD
+      date: date.toISOString().split("T")[0],
       type,
       urgency
     });
@@ -135,7 +121,6 @@ export default function HomeScreen({ navigation }) {
               onConfirm={handleConfirmDate}
               onCancel={() => setDatePickerVisibility(false)}
               themeVariant="light"
-
             />
 
             {/* URGENCY */}
@@ -174,19 +159,15 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
       </Modal>
->>>>>>> Stashed changes
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-<<<<<<< Updated upstream
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  title: { fontSize: 22, fontWeight: '600' },
-=======
   container: { flex: 1, paddingTop: 20, paddingHorizontal: 20 },
   header: { marginBottom: 20 },
   headerText: { fontSize: 28, fontWeight: "bold" },
+  row: { flexDirection: "row", justifyContent: "space-between", flexWrap: "wrap" },
   box: { flexDirection: "row", backgroundColor: "#4A90E2", paddingVertical: 12, paddingHorizontal: 15, width: '100%', height: 60, borderRadius: 10, alignItems: "center", marginBottom: 15 },
   boxText: { color: "#fff", fontWeight: "bold", marginLeft: 20 },
   addButtonContainer: { alignItems: "center", marginTop: 30, marginBottom: 30 },
@@ -196,6 +177,6 @@ const styles = StyleSheet.create({
   modalContent: { width:'90%', backgroundColor:'white', padding:20, borderRadius:10 },
   input: { borderWidth:1, borderColor:'#ccc', borderRadius:5, marginBottom:10, paddingHorizontal:10, height:40 },
   modalButton: { backgroundColor:'green', padding:10, borderRadius:5, flex:1, alignItems:'center', marginHorizontal:5 },
-  selector: { borderWidth:1, borderColor:'#ccc', borderRadius:5, padding:10, marginBottom:10 }
->>>>>>> Stashed changes
+  selector: { borderWidth:1, borderColor:'#ccc', borderRadius:5, padding:10, marginBottom:10 },
+  quickBtn:{ borderWidth:1, borderColor:'#ccc', borderRadius:5, paddingVertical:6, paddingHorizontal:10 }
 });
