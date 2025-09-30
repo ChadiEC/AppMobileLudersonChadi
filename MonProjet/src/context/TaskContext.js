@@ -1,9 +1,7 @@
 import React, { createContext, useState } from 'react';
 
-// ✅ Crée et exporte le contexte
 export const TaskContext = createContext();
 
-// ✅ Fournisseur du contexte
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
@@ -12,7 +10,7 @@ export const TaskProvider = ({ children }) => {
       id: Date.now().toString(),
       title,
       description,
-      date,        // "Aujourd'hui" | "Demain" | "Cette semaine"
+      date,        // stockée au format "2025-09-30"
       type,
       urgency,
       isDone: false
@@ -28,10 +26,34 @@ export const TaskProvider = ({ children }) => {
     setTasks(prev => prev.filter(t => t.id !== id));
   };
 
-  // ✅ Filtres par échéance
-  const getTodayTasks = () => tasks.filter(t => t.date === "Aujourd'hui");
-  const getTomorrowTasks = () => tasks.filter(t => t.date === "Demain");
-  const getWeekTasks = () => tasks.filter(t => t.date === "Cette semaine");
+  const isSameDay = (d1, d2) => d1.toDateString() === d2.toDateString();
+
+  const getTodayTasks = () => {
+    const today = new Date();
+    return tasks.filter(t => {
+      const taskDate = new Date(t.date);
+      return isSameDay(today, taskDate);
+    });
+  };
+
+  const getTomorrowTasks = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tasks.filter(t => {
+      const taskDate = new Date(t.date);
+      return isSameDay(tomorrow, taskDate);
+    });
+  };
+
+  const getWeekTasks = () => {
+    const today = new Date();
+    const endOfWeek = new Date();
+    endOfWeek.setDate(today.getDate() + 7);
+    return tasks.filter(t => {
+      const taskDate = new Date(t.date);
+      return taskDate >= today && taskDate <= endOfWeek;
+    });
+  };
 
   return (
     <TaskContext.Provider

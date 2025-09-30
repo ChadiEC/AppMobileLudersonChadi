@@ -24,7 +24,7 @@ export default function AllTask() {
     addTask({
       title: editTitle,
       description: editDescription,
-      date: editTask.date,
+      date: String(editTask.date),   
       type: editTask.type,
       urgency: editTask.urgency
     });
@@ -70,14 +70,16 @@ export default function AllTask() {
                   {item.title}
                 </Text>
                 <Text style={styles.desc}>{item.description}</Text>
-                <Text style={styles.meta}>📅 {item.date || 'Pas de date'} | ⚡ {item.urgency} | 🏷️ {item.type}</Text>
+                <Text style={styles.meta}>
+                  📅 {item.date ? String(item.date) : 'Pas de date'} | ⚡ {item.urgency} | 🏷️ {item.type}
+                </Text>
               </View>
             </TouchableOpacity>
           </Swipeable>
         )}
       />
 
-      
+      {/* Modal d'édition */}
       <Modal visible={editModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>

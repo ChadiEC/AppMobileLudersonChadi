@@ -31,10 +31,11 @@ export default function HomeScreen({ navigation }) {
     addTask({
       title,
       description,
-      date: date.toISOString().split("T")[0],
+      date,   
       type,
       urgency
     });
+    // Reset
     setTitle("");
     setDescription("");
     setDate(new Date());
@@ -179,5 +180,4 @@ const styles = StyleSheet.create({
   modalButton: { backgroundColor:'green', padding:10, borderRadius:5, flex:1, alignItems:'center', marginHorizontal:5 },
   selector: { borderWidth:1, borderColor:'#ccc', borderRadius:5, padding:10, marginBottom:10 },
   quickBtn:{ borderWidth:1, borderColor:'#ccc', borderRadius:5, paddingVertical:6, paddingHorizontal:10 }
-
 });
