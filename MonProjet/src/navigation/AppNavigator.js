@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -20,6 +20,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'transparent',
+  },
+};
+
+
 
 function Tabs() {
   return (
@@ -36,7 +45,7 @@ export default function AppNavigator() {
   return (
      <GestureHandlerRootView style={{ flex: 1 }}>
       <TaskProvider>
-        <NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
           <Stack.Navigator>
             <Stack.Screen name='Home' component={HomeScreen}/>
             <Stack.Screen name='AllTask' component={AllTaskScreen}/>

@@ -165,7 +165,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 20, paddingHorizontal: 20 },
+  container: { flex: 1, paddingTop: 20, paddingHorizontal: 20,backgroundColor: "transparent" },
   header: { marginBottom: 20 },
   headerText: { fontSize: 28, fontWeight: "bold" },
   row: { flexDirection: "row", justifyContent: "space-between", flexWrap: "wrap" },
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   addButton: { width: 60, height: 60, borderRadius: 30, backgroundColor: "green", alignItems: "center", justifyContent: "center" },
   addButtonText: { color: "#fff", fontSize: 28 },
   modalContainer: { flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.5)' },
-  modalContent: { width:'90%', backgroundColor:'white', padding:20, borderRadius:10 },
+  modalContent: {width: '90%', backgroundColor: 'rgba(255,255,255,0.9)', padding: 20, borderRadius: 10 },
   input: { borderWidth:1, borderColor:'#ccc', borderRadius:5, marginBottom:10, paddingHorizontal:10, height:40 },
   modalButton: { backgroundColor:'green', padding:10, borderRadius:5, flex:1, alignItems:'center', marginHorizontal:5 },
   selector: { borderWidth:1, borderColor:'#ccc', borderRadius:5, padding:10, marginBottom:10 },
